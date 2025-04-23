@@ -1,4 +1,4 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '../stisla/assets/css/style.css';
+@import '../../public/assets/css/style.css';

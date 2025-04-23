@@ -11,7 +11,7 @@ class UtamaController extends Controller
      */
     public function index()
     {
-        return view('Home.blade.php');
+        return view('dashboard');
     }
 
     /**

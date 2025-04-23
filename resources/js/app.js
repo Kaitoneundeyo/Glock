@@ -1,2 +1,2 @@
 import './bootstrap';
-import '../stisla/assets/js/scripts.js';
+import '../../public/assets/js/scripts.js';

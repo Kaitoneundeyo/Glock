@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -11,54 +12,40 @@ class AuthController extends Controller
      */
     public function index()
     {
-        //
+        return view('auth.login');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function login_proses(Request $request)
     {
-        //
+        $request->validate([
+
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        if (Auth::attempt($data)) {
+            return redirect()->intended('dashboard');
+        } else {
+            return back()->with('error', 'Email atau password salah');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login')->with('success', 'Berhasil logout!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
