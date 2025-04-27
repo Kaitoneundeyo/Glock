@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\User;
+use App\Models\category;
 use Illuminate\Http\Request;
 
-class UtamaController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard');
+    
+    $category= category::all();
+    return view('Kategori.DataKT', compact('categories'));
+
     }
 
     /**
