@@ -4,8 +4,6 @@
           <div class="section-header">
             <h1>DATA USER</h1>
           </div>
-
-          <div class="section-body">
-          </div>
+          @livewire('manage-user')
         </section>
 @endsection
