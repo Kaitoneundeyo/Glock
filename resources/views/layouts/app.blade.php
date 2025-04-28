@@ -18,6 +18,10 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+
+    <!-- VITE -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
     @stack('css')
 </head>
 
@@ -72,8 +76,7 @@
     </script>
 
     @stack('scripts')--}}
-
-    <!-- Page Specific JS File -->
+    @livewireScripts
 </body>
 
 </html>
