@@ -9,7 +9,13 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login-proses', [AuthController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', [UtamaController::class, 'show'])->name('dashboard');
+Route::get('/dashboard', [UtamaController::class, 'index'])->name('dashboard');
+Route::get('/create', [UtamaController::class, 'create'])->name('user.create');
+Route::post('/store', [UtamaController::class, 'store'])->name('user.store');
+Route::get('/edit', [UtamaController::class, 'edit'])->name('user.edit');
+Route::post('/update', [UtamaController::class, 'update'])->name('user.update');
+Route::get('/destroy', [UtamaController::class, 'destroy'])->name('user.destroy');
+
 
 Route::get('/datakt', [CategoriesController::class, 'index'])->name('kategori.data');
 Route::get('/createkt', [CategoriesController::class, 'create'])->name('kategori.form');

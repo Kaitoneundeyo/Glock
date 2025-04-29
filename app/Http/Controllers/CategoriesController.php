@@ -11,9 +11,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-    
+
     $category= category::all();
-    return view('Kategori.DataKT', compact('categories'));
+    return view('kategori.data_kt', compact('category'));
 
     }
 
