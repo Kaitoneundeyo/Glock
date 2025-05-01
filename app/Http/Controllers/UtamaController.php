@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\User;
+use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +12,7 @@ class UtamaController extends Controller
      */
     public function index()
     {
-        $users = User::all(); // ambil semua data user
+        $users = Users::all(); // ambil semua data user
 
         return view('dashboard', compact('users'));
     }
@@ -32,7 +31,7 @@ class UtamaController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        User::create([
+        Users::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -43,14 +42,14 @@ class UtamaController extends Controller
 
     public function edit($id)
     {
-    $user = User::findOrFail($id); // Cari user berdasarkan id, kalau tidak ketemu akan otomatis 404
+    $user = Users::findOrFail($id); // Cari user berdasarkan id, kalau tidak ketemu akan otomatis 404
 
     return view('user.form_ts', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
 
         $request->validate([
             'name' => 'required',
@@ -67,7 +66,7 @@ class UtamaController extends Controller
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         $user->delete();
 
         return redirect()->route('dashboard')->with('success', 'User berhasil dihapus!');
