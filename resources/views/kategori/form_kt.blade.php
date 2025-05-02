@@ -1,36 +1,38 @@
 @extends('layouts.app')
-@section('content')
-<div class="card">
-    <div class="card-header">
-        <h4>Form Tambah Kategori</h4>
-    </div>
-<div class="card-body">
-        <form method="POST" action="{{ route('kategori.store') }}">
-            @csrf 
 
+@section('content')
+<div class="card col-8">
+    <form action="{{ route('kategori.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="card-header col-8">
+            <h4>Form Tambah Kategori</h4>
+        </div>
+
+        <div class="card-body">
             <div class="form-group row">
-                <div class="form-group col-6">
-                    <label for="name">Nama</label>
-                    <input id="name" type="text" class="form-control" name="name" placeholder="Masukkan nama anda" autofocus>
+                <div class="col-8">
+                    <label for="name">Kategori</label>
+                    <input id="name" type="text" class="form-control" name="name" placeholder="Masukkan nama kategori" autofocus>
                     @error('name')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                
-                <div class="form-group row">
-                <div class="form-group col-6">
-                    <label for="slug">Kategori</label>
-                    <input id="kategori" type="text" class="form-control" name="slug" placeholder="Masukkan Jenis Makanannya">
+            </div>
+
+            <div class="form-group row">
+                <div class="col-8">
+                    <label for="slug">URL</label>
+                    <input id="slug" type="text" class="form-control" name="slug" placeholder="Masukkan URL kategori">
                     @error('slug')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                    Simpan
-                </button>
             </div>
-        </form>
-    </div>
-    @endsection
+        </div>
+
+        <div class="card-footer text-right">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </form>
+</div>
+@endsection

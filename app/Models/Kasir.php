@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kasirs extends Model
+class Kasir extends Model
 {
     use HasFactory;
 
-    protected $table = 'kasirs';
+    protected $table = 'kasir';
 
     protected $primaryKey = 'user_id';
     public $incrementing = false;  // Karena primary key menggunakan user_id yang bukan auto increment
@@ -17,7 +17,7 @@ class Kasirs extends Model
 
     public function user()
     {
-        return $this->belongsTo(Users::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function assignRole()

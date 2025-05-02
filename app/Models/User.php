@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Users extends Authenticatable
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -30,18 +30,18 @@ class Users extends Authenticatable
         return $this->roles->pluck('name')->contains($role);
     }
     public function kasir() {
-        return $this->hasOne(Kasirs::class);
+        return $this->hasOne(Kasir::class);
     }
 
     public function adminGudang() {
-        return $this->hasOne(AdminGudangs::class);
+        return $this->hasOne(AdminGudang::class);
     }
 
     public function pengunjung() {
-        return $this->hasOne(Pengunjungs::class);
+        return $this->hasOne(Pengunjung::class);
     }
 
     public function superAdmin() {
-        return $this->hasOne(SuperAdmins::class);
+        return $this->hasOne(SuperAdmin::class);
     }
 }

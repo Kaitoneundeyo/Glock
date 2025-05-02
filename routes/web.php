@@ -18,7 +18,7 @@ Route::get('/destroy', [UtamaController::class, 'destroy'])->name('user.destroy'
 
 
 Route::get('/datakt', [CategoriesController::class, 'index'])->name('kategori.data');
-Route::get('/createkt', [CategoriesController::class, 'create'])->name('kategori.form');
+Route::get('/createkt', [CategoriesController::class, 'create'])->name('kategori.create');
 Route::post('/storekt', [CategoriesController::class, 'store'])->name('kategori.store');
 Route::get('/editkt', [CategoriesController::class, 'edit'])->name('kategori.edit');
 Route::post('/updatekt', [CategoriesController::class, 'update'])->name('kategori.update');
