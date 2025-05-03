@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UtamaController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,5 @@ Route::post('/storekt', [CategoriesController::class, 'store'])->name('kategori.
 Route::get('/editkt', [CategoriesController::class, 'edit'])->name('kategori.edit');
 Route::post('/updatekt', [CategoriesController::class, 'update'])->name('kategori.update');
 Route::get('/destroykt', [CategoriesController::class,'destroy'])->name('kategori.destroy');
+
+Route::get('/datatp', [ProdukController::class, 'index'])->name('produk.data');

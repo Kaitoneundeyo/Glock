@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('nama_produk');
             $table->foreignId('categories_id')->constrained('categories')->onDelete('cascade');
             $table->text('deskripsi')->nullable();
-            $table->decimal('harga', 10, 2)->nullable(); // diisi oleh superadmin
-            $table->decimal('diskon', 5, 2)->default(0); // persen (opsional)
+            $table->date('tanggal_masuk');
             $table->timestamps();
         });
     }

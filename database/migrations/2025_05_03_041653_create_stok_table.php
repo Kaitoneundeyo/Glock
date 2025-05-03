@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
             $table->integer('jumlah');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // admin gudang yang input
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
+            $table->enum('ukuran', ['50 gram', '100 gram', '250 gram', '500 gram', '1 kg', '1,5 kg', '2 kg' ]);
+            $table->date('kedaluarsa'); 
             $table->timestamps();
         });
 

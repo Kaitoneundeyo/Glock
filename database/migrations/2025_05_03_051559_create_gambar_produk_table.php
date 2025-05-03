@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('gambar_produk', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+            $table->string('tipe')->default('utama'); // utama, resep, panduan
+            $table->string('path'); // path file gambar
             $table->timestamps();
         });
+        
     }
 
     /**
