@@ -1,22 +1,18 @@
 <?php
-
 namespace App\Models;
+
 use App\Models\Produk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Harga extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'slug',
-    ];
+    protected $fillable = ['produk_id', 'harga', 'diskon'];
 
-    // Relasi: Category has many Products
     public function produk()
     {
-        return $this->hasMany(Produk::class);
+        return $this->belongsTo(Produk::class);
     }
 }
