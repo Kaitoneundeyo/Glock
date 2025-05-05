@@ -16,7 +16,7 @@ class Produk extends Model
 
     protected $fillable = [
         'nama_produk',
-        'kategori_id',
+        'categories_id',
         'deskripsi',
         'tanggal_masuk'
     ];
@@ -36,7 +36,7 @@ class Produk extends Model
         return $this->hasOne(Harga::class);
     }
 
-    public function gambarProduk() 
+    public function gambarProduk()
     {
         return $this->hasOne(GambarProduk::class);
     }

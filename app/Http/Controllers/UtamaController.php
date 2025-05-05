@@ -42,7 +42,7 @@ class UtamaController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
     }
 
     /**
@@ -71,7 +71,7 @@ class UtamaController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'User berhasil diupdate!');
+        return redirect()->route('user.index')->with('success', 'User berhasil diupdate!');
     }
 
     /**
@@ -82,6 +82,6 @@ class UtamaController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('dashboard')->with('success', 'User berhasil dihapus!');
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus!');
     }
 }

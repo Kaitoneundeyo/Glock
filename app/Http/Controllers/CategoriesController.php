@@ -13,7 +13,7 @@ class CategoriesController extends Controller
     {
 
     $category= category::all();
-    return view('kategori.data_kt', compact('category'));
+    return view('kategori.index', compact('category'));
 
     }
 
@@ -29,34 +29,38 @@ class CategoriesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'slug' => 'required|string|unique:kategoris,slug|max:255',
-    ]);
+    {
 
-    category::create([
-        'name' => $request->name,
-        'slug' => $request->slug,
-    ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:categories,slug|max:255',
+        ]);
 
-    return redirect()->route('kategori.data')->with('success', 'Kategori berhasil ditambahkan.');
-}
+
+        Category::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+        ]);
+
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+    }
+
+
 
 
     /**
      * Display the specified resource.
      */
     public function edit($id)
-{
-    $category = Category::findOrFail($id);
-    return view('kategori.edit_kt', compact('category'));
-}
+    {
+        $category = Category::findOrFail($id);
+        return view('kategori.edit_kt', compact('category'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
+    {
     $category = category::findOrFail($id);
 
     $request->validate([
@@ -69,18 +73,18 @@ class CategoriesController extends Controller
         'slug' => $request->slug,
     ]);
 
-    return redirect()->route('kategori.data')->with('success', 'Kategori berhasil diperbarui.');
-}
+    return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
+    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-{
+    {
     $category = category::findOrFail($id);
     $category->delete();
 
-    return redirect()->route('kategori.datakt')->with('success', 'Kategori berhasil dihapus.');
-}
+    return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
+    }
 
 }

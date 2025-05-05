@@ -31,7 +31,7 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
         if (Auth::attempt($data)) {
-            return redirect()->route('index');
+            return redirect()->route('user.index');
         } else {
             return back()->with('error', 'Email atau password salah');
         }

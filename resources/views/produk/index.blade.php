@@ -5,7 +5,8 @@
     <div class="section-header">
         <h1>DATA PRODUK</h1>
     </div>
-    <div>
-        @livewire('produk-component')
-    </div>
+<div>
+    @livewire('produk-component')
+</div>
+
 @endsection

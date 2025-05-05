@@ -24,52 +24,52 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                    <tbody>
-                        @foreach ($category as $cat)
-                        @if (isset($cat->id))
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $cat->name ?? 'N/A' }}</td>
-                                <td>{{ $cat->slug ?? 'N/A' }}</td>
-                                <td>
-                                <a href="{{ route('kategori.edit', $cat->id) }}" class="btn btn-warning">
+                <tbody>
+                    @foreach ($category as $data)
+                    @if (isset($data->id))
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $data->name ?? 'N/A' }}</td>
+                            <td>{{ $data->slug ?? 'N/A' }}</td>
+                            <td>
+                                <a href="{{ route('kategori.edit', $data->id) }}" class="btn btn-warning">
                                     <i class="fas fa-pen"></i>Edit
                                 </a>
                                 <!-- Tombol Delete -->
-                                <a data-toggle="modal" data-target="#modal-hapus{{ $cat->id }}" class="btn btn-danger">
-                                  <i class="fas fa-trash-alt"></i> Hapus
+                                <a data-toggle="modal" data-target="#modal-hapus{{ $data->id }}" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Hapus
                                 </a>
                                 <!-- Modal -->
-                              <div class="modal fade" id="modal-hapus{{ $cat->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $cat->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel{{ $cat->id }}">Konfirmasi Hapus</h5>
-                                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus data ini?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form action="{{ route('kategori.destroy', $cat->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                            </form>
+                                <div class="modal fade" id="modal-hapus{{ $data->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $data->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalLabel{{ $data->id }}">Konfirmasi Hapus</h5>
+                                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Apakah Anda yakin ingin menghapus data ini?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{ route('kategori.destroy', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                              </div>
                             </td>
                         </tr>
-                            @else
-                                <tr>
-                                    <td colspan="4">Data not available</td>
-                                </tr>
-                            @endif
-                        @endforeach
-                  </tbody>
+                    @else
+                        <tr>
+                            <td colspan="4">Data tidak tersedia</td>
+                        </tr>
+                    @endif
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>

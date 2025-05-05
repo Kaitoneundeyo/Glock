@@ -14,12 +14,12 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login-proses', [AuthController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/index', [UtamaController::class, 'index'])->name('index');
+Route::get('/user', [UtamaController::class, 'index'])->name('user.index');
 Route::get('/user/create', [UtamaController::class, 'create'])->name('user.create');
 Route::post('/user/store', [UtamaController::class, 'store'])->name('user.store');
-Route::put('/user/{id}/edit', [UtamaController::class, 'edit'])->name('user.edit');
-Route::post('/user/{id}/update', [UtamaController::class, 'update'])->name('user.update');
-Route::get('/user/{id}/destroy', [UtamaController::class, 'destroy'])->name('user.destroy');
+Route::get('/user/{id}/edit', [UtamaController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}/update', [UtamaController::class, 'update'])->name('user.update');
+Route::delete('/user/{id}', [UtamaController::class, 'destroy'])->name('user.destroy');
 
 
 Route::get('/kt', [CategoriesController::class, 'index'])->name('kategori.index');
@@ -27,11 +27,10 @@ Route::get('/kt/create', [CategoriesController::class, 'create'])->name('kategor
 Route::post('/kt/store', [CategoriesController::class, 'store'])->name('kategori.store');
 Route::get('/kt/{id}/edit', [CategoriesController::class, 'edit'])->name('kategori.edit');
 Route::put('/kt/{id}/update', [CategoriesController::class, 'update'])->name('kategori.update');
-Route::get('/kt/{id}/destroy', [CategoriesController::class, 'destroy'])->name('kategori.destroy');
+Route::delete('/kt/{id}/destroy', [CategoriesController::class, 'destroy'])->name('kategori.destroy');
 
 
-
-Route::get('/datatp', [ProdukController::class, 'index'])->name('produk.data');
-Route::get('/datast', [StokController::class, 'index'])->name('stok.data');
-Route::get('/datahg', [HargaController::class, 'index'])->name('harga.data');
-Route::get('/datagp', [GambarProdukController::class, 'index'])->name('gp.data');
+Route::get('/pd', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/st', [StokController::class, 'index'])->name('stok.data');
+Route::get('/hg', [HargaController::class, 'index'])->name('harga.data');
+Route::get('/gp', [GambarProdukController::class, 'index'])->name('gp.data');
