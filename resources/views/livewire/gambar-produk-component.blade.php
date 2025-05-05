@@ -1,3 +1,3 @@
 <div>
-    {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
+    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
 </div>

@@ -15,11 +15,11 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Menu</li>
             <li class="nav-item {{ !request()->is('/') ? 'active' : '' }}">
-                <a href="dashboard" class="nav-link has-dropdown">
+                <a href="{{ route('dashboard')}}" class="nav-link has-dropdown">
                 <i class="fas fa-th"></i><span>USER</span></a>
                <ul class="dropdown-menu">
                     <li><a href="{{ route('kategori.data') }}" class="nav-link">KATEGORI</a></li>
-                    {{--<li><a href="{{ route('#') }}" class="nav-link">PRODUK</a></li>--}}
+                    <li><a href="{{ route('produk.data') }}" class="nav-link">PRODUK</a></li>
                     {{--<li><a href="{{ route('kategori.data') }}" class="nav-link">KATEGORI</a></li>--}}
                     <li><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a></li>
                 </ul>

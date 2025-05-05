@@ -47,11 +47,11 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function edit(string $id)
-    {
-      $category = category::find($id);
-    }
-
+    public function edit($id)
+{
+    $category = Category::findOrFail($id);
+    return view('kategori.edit_kt', compact('category'));
+}
     /**
      * Update the specified resource in storage.
      */
@@ -80,7 +80,7 @@ class CategoriesController extends Controller
     $category = category::findOrFail($id);
     $category->delete();
 
-    return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
+    return redirect()->route('kategori.datakt')->with('success', 'Kategori berhasil dihapus.');
 }
 
 }

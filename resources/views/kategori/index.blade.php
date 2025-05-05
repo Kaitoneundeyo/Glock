@@ -32,26 +32,26 @@
                                 <td>{{ $cat->name ?? 'N/A' }}</td>
                                 <td>{{ $cat->slug ?? 'N/A' }}</td>
                                 <td>
-                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning">
+                                <a href="{{ route('kategori.edit', $cat->id) }}" class="btn btn-warning">
                                     <i class="fas fa-pen"></i>Edit
                                 </a>
                                 <!-- Tombol Delete -->
-                                <a data-toggle="modal" data-target="#modal-hapus{{ $user->id }}" class="btn btn-danger">
+                                <a data-toggle="modal" data-target="#modal-hapus{{ $cat->id }}" class="btn btn-danger">
                                   <i class="fas fa-trash-alt"></i> Hapus
                                 </a>
                                 <!-- Modal -->
-                              <div class="modal fade" id="modal-hapus{{ $user->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $user->id }}" aria-hidden="true">
+                              <div class="modal fade" id="modal-hapus{{ $cat->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $cat->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel{{ $user->id }}">Konfirmasi Hapus</h5>
+                                            <h5 class="modal-title" id="modalLabel{{ $cat->id }}">Konfirmasi Hapus</h5>
                                             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             Apakah Anda yakin ingin menghapus data ini?
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                            <form action="{{ route('kategori.destroy', $cat->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

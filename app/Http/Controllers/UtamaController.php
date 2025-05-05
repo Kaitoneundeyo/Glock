@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -8,62 +9,74 @@ use Illuminate\Support\Facades\Hash;
 class UtamaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan semua data user
      */
     public function index()
     {
-        $users = User::all(); // ambil semua data user
-
-        return view('dashboard', compact('users'));
+        $user = User::all();
+        return view('user.index', compact('user'));
     }
 
-    public function create(string $id)
+    /**
+     * Tampilkan form tambah user
+     */
+    public function create()
     {
-        $users = User::find($id);
+        return view('user.form_ts');
     }
 
-
+    /**
+     * Simpan user baru ke database
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('dashboard')->with('success', 'User berhasil ditambahkan!');
     }
 
+    /**
+     * Tampilkan form edit user
+     */
     public function edit($id)
     {
-    $user = User::findOrFail($id); // Cari user berdasarkan id, kalau tidak ketemu akan otomatis 404
-
-    return view('user.form_ts', compact('user'));
+        $user = User::findOrFail($id);
+        return view('user.edit_ts', compact('user'));
     }
 
+    /**
+     * Update data user
+     */
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:id,email,'.$id,
+            'name'  => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
         $user->update([
-            'name' => $request->name,
+            'name'  => $request->name,
             'email' => $request->email,
         ]);
 
         return redirect()->route('dashboard')->with('success', 'User berhasil diupdate!');
     }
 
+    /**
+     * Hapus user
+     */
     public function destroy($id)
     {
         $user = User::findOrFail($id);

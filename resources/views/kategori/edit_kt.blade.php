@@ -5,7 +5,7 @@
         <h4>Form Edit Kategori</h4>
     </div>
 <div class="card-body">
-    <form action="{{route ('kategori.update', $cat->id)}}" method="POST">
+    <form action="{{ route('kategori.update', $category->id) }}" method="POST">
         @csrf
         @method('PUT')
             <div class="form-group row">

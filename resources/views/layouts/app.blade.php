@@ -22,6 +22,7 @@
     <!-- VITE -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('css')
+    @livewireStyles
 </head>
 
 <body>
@@ -84,6 +85,7 @@
             @endif
         });
     </script>
+    @livewireScripts
 </body>
 
 </html>
