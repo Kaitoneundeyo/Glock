@@ -8,6 +8,6 @@ class StokController extends Controller
 {
     public function index()
     {
-        return view('stok.data_stok');
+        return view('stok.index');
     }
 }

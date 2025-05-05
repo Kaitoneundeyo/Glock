@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\HargaController;
 use App\Http\Controllers\GambarProdukController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UtamaController;
 use App\Models\Stok;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login-proses', [AuthController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/user', [UtamaController::class, 'index'])->name('user.index');
 Route::get('/user/create', [UtamaController::class, 'create'])->name('user.create');
@@ -31,6 +34,6 @@ Route::delete('/kt/{id}/destroy', [CategoriesController::class, 'destroy'])->nam
 
 
 Route::get('/pd', [ProdukController::class, 'index'])->name('produk.index');
-Route::get('/st', [StokController::class, 'index'])->name('stok.data');
-Route::get('/hg', [HargaController::class, 'index'])->name('harga.data');
-Route::get('/gp', [GambarProdukController::class, 'index'])->name('gp.data');
+Route::get('/st', [StokController::class, 'index'])->name('stok.index');
+Route::get('/hg', [HargaController::class, 'index'])->name('harga.index');
+Route::get('/gp', [GambarProdukController::class, 'index'])->name('gp.index');
