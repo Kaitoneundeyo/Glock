@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Models;
 
-use App\Models\Produk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,18 +14,14 @@ class Stok extends Model
     protected $fillable = [
         'produk_id',
         'jumlah',
-        'user_id', 
-        'ukuran',
-        'kedaluarsa'
+        'tipe',
+        'keterangan',
+        'tanggal',
     ];
 
+    // Relasi ke produk
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id');
-    }
-
-    public function adminGudang()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }

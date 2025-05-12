@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('stok', function (Blueprint $table) {
             $table->id();
             $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
-            $table->integer('jumlah');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
-            $table->enum('ukuran', ['50 gram', '100 gram', '250 gram', '500 gram', '1 kg', '1,5 kg', '2 kg' ]);
-            $table->date('kedaluarsa'); 
+            $table->integer('jumlah')->default(0); // jumlah stok saat ini
+            $table->enum('tipe', ['masuk', 'keluar', 'penyesuaian']); // jenis pergerakan
+            $table->string('keterangan')->nullable(); // misalnya: pembelian, retur, dsb.
+            $table->date('tanggal');
             $table->timestamps();
         });
 

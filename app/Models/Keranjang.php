@@ -1,16 +1,23 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GambarProduk extends Model
+class Keranjang extends Model
 {
     protected $fillable = [
-        'produk_id', 'gambar', 'cara_olah', 'resep',
+        'user_id', 'produk_id', 'qty',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function produk()
     {
         return $this->belongsTo(Produk::class);
     }
 }
+

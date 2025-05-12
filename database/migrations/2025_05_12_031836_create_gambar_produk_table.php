@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gambar_produk', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
-            $table->string('tipe')->default('utama'); // utama, resep, panduan
-            $table->string('path'); // path file gambar
-            $table->timestamps();
+        $table->id();
+        $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+        $table->string('gambar'); // path gambar
+        $table->text('cara_olah')->nullable(); // deskripsi cara olah
+        $table->text('resep')->nullable(); // deskripsi resep
+        $table->timestamps();
         });
-        
+
     }
 
     /**
