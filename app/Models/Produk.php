@@ -16,13 +16,12 @@ class Produk extends Model
         'nama_produk',
         'merk',
         'tipe',
-        'berat_gram',
+        'berat',
         'categories_id',
-        'tanggal_kedaluwarsa',
     ];
 
     // Relasi ke kategori (jika kamu punya model Kategori)
-    public function kategori()
+    public function category()
     {
         return $this->belongsTo(Category::class, 'categories_id');
     }

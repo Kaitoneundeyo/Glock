@@ -13,10 +13,12 @@ class Stok extends Model
 
     protected $fillable = [
         'produk_id',
-        'jumlah',
-        'tipe',
-        'keterangan',
-        'tanggal',
+        'tanggal_masuk',
+        'tanggal_kedaluarsa',
+        'jumlah_masuk',
+        'jumlah_terjual',
+        'harga_beli',
+        'harga_jual',
     ];
 
     // Relasi ke produk

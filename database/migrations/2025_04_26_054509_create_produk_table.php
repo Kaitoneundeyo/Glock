@@ -12,18 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('produk', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_produk');
-            $table->string('nama_produk');
-            $table->string('merk');
-            $table->string('tipe');
-            $table->integer('berat_gram');
-            $table->foreignId('categories_id')->constrained();
-            $table->date('tanggal_kedaluwarsa');
-            $table->timestamps();
-        });
+        $table->id();
+        $table->string('kode_produk')->unique(); // Barcode
+        $table->string('nama_produk');
+        $table->string('merk');
+        $table->string('tipe')->nullable(); // Varian (opsional)
+        $table->integer('berat')->nullable(); // Gram/ml (opsional)
+        $table->foreignId('categories_id')->constrained();
+        $table->timestamps();
+    });
     }
-
     /**
      * Reverse the migrations.
      */
