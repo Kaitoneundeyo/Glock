@@ -1,6 +1,6 @@
 <div class="container">
     {{-- Form Tambah Produk --}}
-    <form wire:submit.prevent="store">
+    <form wire:submit.prevent="{{ $updateMode ? 'update' : 'store' }}">
         {{-- Kode Produk --}}
         <div class="mb-3 row">
             <label for="kode_produk" class="col-sm-2 col-form-label">Kode Produk</label>
@@ -65,12 +65,18 @@
             </div>
         </div>
 
-        {{-- Tombol Simpan --}}
+       {{-- Tombol Simpan / Update --}}
         <div class="card-footer text-right">
             <div class="offset-sm-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Simpan Produk</button>
+                <button type="submit" class="btn btn-{{ $updateMode ? 'success' : 'primary' }}">
+                    {{ $updateMode ? 'Update Produk' : 'Simpan Produk' }}
+                </button>
+                @if($updateMode)
+                    <button type="button" wire:click="resetForm" class="btn btn-secondary">Batal</button>
+                @endif
             </div>
         </div>
+
 
         {{-- Notifikasi Sukses --}}
         @if (session()->has('message'))
@@ -105,8 +111,13 @@
                         <td>{{ $value->tipe }}</td>
                         <td>{{ $value->berat }}</td>
                         <td>
-                            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="#" class="btn btn-danger btn-sm">Del</a>
+                        <button wire:click="edit({{ $value->id }})" class="btn btn-icon btn-warning btn-sm" title="Edit">
+                        <i class="fas fa-edit"></i>
+                        </button>
+                        <button wire:click="delete({{ $value->id }})" class="btn btn-icon btn-danger btn-sm" title="Hapus"
+                        onclick="return confirm('Yakin ingin menghapus?')">
+                        <i class="fas fa-trash"></i>
+                        </button>
                         </td>
                     </tr>
                 @endforeach
