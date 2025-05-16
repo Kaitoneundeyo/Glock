@@ -4,11 +4,11 @@
 <div class="card col-8">
     <form action="{{ route('kategori.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="card-header col-8">
+        <div class="card-header col-8 text-black">
             <h4>Form Tambah Kategori</h4>
         </div>
 
-        <div class="card-body">
+        <div class="card-body text-black">
             <div class="form-group row">
                 <div class="col-8">
                     <label for="name">Kategori</label>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary text-black">Simpan</button>
         </div>
     </form>
 </div>

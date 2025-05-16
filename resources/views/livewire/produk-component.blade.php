@@ -3,7 +3,7 @@
     <form wire:submit.prevent="{{ $updateMode ? 'update' : 'store' }}">
         {{-- Kode Produk --}}
         <div class="mb-3 row">
-            <label for="kode_produk" class="col-sm-2 col-form-label">Kode Produk</label>
+            <label for="kode_produk" class="col-sm-2 col-form-label text-black">Kode Produk</label>
             <div class="col-sm-10">
                 <input type="text" wire:model="kode_produk" class="form-control" id="kode_produk">
                 @error('kode_produk') <small class="text-danger">{{ $message }}</small> @enderror
@@ -12,7 +12,7 @@
 
         {{-- Nama Produk --}}
         <div class="mb-3 row">
-            <label for="nama_produk" class="col-sm-2 col-form-label">Nama Produk</label>
+            <label for="nama_produk" class="col-sm-2 col-form-label text-black">Nama Produk</label>
             <div class="col-sm-10">
                 <input type="text" wire:model="nama_produk" class="form-control" id="nama_produk">
                 @error('nama_produk') <small class="text-danger">{{ $message }}</small> @enderror
@@ -21,7 +21,7 @@
 
         {{-- Merk --}}
         <div class="mb-3 row">
-            <label for="merk" class="col-sm-2 col-form-label">Merk</label>
+            <label for="merk" class="col-sm-2 col-form-label text-black">Merk</label>
             <div class="col-sm-10">
                 <input type="text" wire:model="merk" class="form-control" id="merk">
                 @error('merk') <small class="text-danger">{{ $message }}</small> @enderror
@@ -30,7 +30,7 @@
 
         {{-- Kategori --}}
         <div class="mb-3 row">
-            <label for="kategori" class="col-sm-2 col-form-label">Kategori</label>
+            <label for="kategori" class="col-sm-2 col-form-label text-black">Kategori</label>
             <div class="col-sm-10">
                 <select class="form-control" id="kategori" wire:model="categories_id">
                     <option value="">-- Pilih Kategori --</option>
@@ -44,7 +44,7 @@
 
         {{-- Varian / Tipe --}}
         <div class="mb-3 row">
-            <label for="tipe" class="col-sm-2 col-form-label">Varian</label>
+            <label for="tipe" class="col-sm-2 col-form-label text-black">Varian</label>
             <div class="col-sm-10">
                 <input type="text" wire:model="tipe" class="form-control" id="tipe">
                 @error('tipe') <small class="text-danger">{{ $message }}</small> @enderror
@@ -53,7 +53,7 @@
 
         {{-- Berat --}}
         <div class="mb-3 row">
-            <label for="berat" class="col-sm-2 col-form-label">Berat</label>
+            <label for="berat" class="col-sm-2 col-form-label text-black">Berat</label>
             <div class="col-sm-10">
                 <select wire:model="berat" class="form-control" id="berat">
                     <option value="">Pilih Berat</option>
@@ -68,11 +68,11 @@
        {{-- Tombol Simpan / Update --}}
         <div class="card-footer text-right">
             <div class="offset-sm-2 col-sm-10">
-                <button type="submit" class="btn btn-{{ $updateMode ? 'success' : 'primary' }}">
+                <button type="submit" class="btn btn-{{ $updateMode ? 'success' : 'primary' }} text-black">
                     {{ $updateMode ? 'Update Produk' : 'Simpan Produk' }}
                 </button>
                 @if($updateMode)
-                    <button type="button" wire:click="resetForm" class="btn btn-secondary">Batal</button>
+                    <button type="button" wire:click="resetForm" class="btn btn-outline-primary text-black">Batal</button>
                 @endif
             </div>
         </div>
@@ -111,10 +111,10 @@
                         <td>{{ $value->tipe }}</td>
                         <td>{{ $value->berat }}</td>
                         <td>
-                        <button wire:click="edit({{ $value->id }})" class="btn btn-icon btn-warning btn-sm" title="Edit">
+                        <button wire:click="edit({{ $value->id }})" class="btn btn-icon btn-warning btn-sm text-black" title="Edit">
                         <i class="fas fa-edit"></i>
                         </button>
-                        <button wire:click="delete({{ $value->id }})" class="btn btn-icon btn-danger btn-sm" title="Hapus"
+                        <button wire:click="delete({{ $value->id }})" class="btn btn-icon btn-danger btn-sm text-black" title="Hapus"
                         onclick="return confirm('Yakin ingin menghapus?')">
                         <i class="fas fa-trash"></i>
                         </button>

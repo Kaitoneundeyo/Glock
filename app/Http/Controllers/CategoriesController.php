@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\category;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -12,7 +12,7 @@ class CategoriesController extends Controller
     public function index()
     {
 
-    $category= category::all();
+    $category= Category::all();
     return view('kategori.index', compact('category'));
 
     }
@@ -61,11 +61,11 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-    $category = category::findOrFail($id);
+    $category = Category::findOrFail($id);
 
     $request->validate([
         'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255|unique:kategoris,slug,' . $category->id,
+        'slug' => 'required|string|max:255|unique:Categories,slug,' . $category->id,
     ]);
 
     $category->update([
@@ -81,7 +81,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-    $category = category::findOrFail($id);
+    $category = Category::findOrFail($id);
     $category->delete();
 
     return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
