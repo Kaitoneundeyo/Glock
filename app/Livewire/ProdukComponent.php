@@ -14,7 +14,7 @@ class ProdukComponent extends Component
 
     public $categories;
     public $produk_id;
-    public $kode_produk, $nama_produk, $merk, $tipe, $berat, $categories_id;
+    public $kode_produk, $nama_produk, $merk, $tipe, $berat, $categories_id, $harga_beli, $harga_jual, $stok;
     public $updateMode = false;
 
     public function mount()
@@ -22,18 +22,26 @@ class ProdukComponent extends Component
         $this->categories = Category::all();
     }
 
-        public function store()
+    public function rules()
     {
-        $rules = [
-            'kode_produk'    => 'required|unique:produk,kode_produk',
+        return [
+            'kode_produk'    => 'required|unique:produk,kode_produk,' . $this->produk_id,
             'nama_produk'    => 'required',
-            'merk'           => 'required',
+            'merk'           => 'nullable',
             'categories_id'  => 'required',
-            'tipe'           => 'required',
-            'berat'          => 'required',
+            'tipe'           => 'nullable',
+            'berat'          => 'nullable|numeric',
+            'harga_beli'     => 'required|numeric',
+            'harga_jual'     => 'required|numeric',
+            'stok'           => 'required|integer',
         ];
+    }
 
-        $validated = $this->validate($rules);
+    public function store()
+    {
+        $this->produk_id = 'NULL'; // untuk validasi unique saat store
+        $validated = $this->validate();
+
         Produk::create($validated);
 
         session()->flash('message', 'Produk berhasil disimpan');
@@ -43,6 +51,7 @@ class ProdukComponent extends Component
     public function edit($id)
     {
         $dataproduk = Produk::findOrFail($id);
+
         $this->produk_id     = $dataproduk->id;
         $this->kode_produk   = $dataproduk->kode_produk;
         $this->nama_produk   = $dataproduk->nama_produk;
@@ -50,27 +59,22 @@ class ProdukComponent extends Component
         $this->categories_id = $dataproduk->categories_id;
         $this->tipe          = $dataproduk->tipe;
         $this->berat         = $dataproduk->berat;
-        $this->updateMode    = true;
+        $this->harga_beli    = $dataproduk->harga_beli;
+        $this->harga_jual    = $dataproduk->harga_jual;
+        $this->stok          = $dataproduk->stok;
+
+        $this->updateMode = true;
     }
 
     public function update()
     {
-        $rules = [
-            'kode_produk'    => 'required|unique:produk,kode_produk,' . $this->produk_id,
-            'nama_produk'    => 'required',
-            'merk'           => 'required',
-            'categories_id'  => 'required',
-            'tipe'           => 'required',
-            'berat'          => 'required',
-        ];
+        $validated = $this->validate();
 
-        $validated = $this->validate($rules);
         $dataproduk = Produk::findOrFail($this->produk_id);
         $dataproduk->update($validated);
 
         session()->flash('message', 'Produk berhasil diperbarui');
         $this->resetForm();
-        $this->updateMode = false;
     }
 
     public function delete($id)
@@ -81,7 +85,10 @@ class ProdukComponent extends Component
 
     public function resetForm()
     {
-        $this->reset(['produk_id', 'kode_produk', 'nama_produk', 'merk', 'categories_id', 'tipe', 'berat']);
+        $this->reset([
+            'produk_id', 'kode_produk', 'nama_produk', 'merk',
+            'categories_id', 'tipe', 'berat', 'harga_beli', 'harga_jual', 'stok'
+        ]);
         $this->updateMode = false;
     }
 

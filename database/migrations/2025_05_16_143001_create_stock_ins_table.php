@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stock_ins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produk_id')->constrained()->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
             $table->integer('jumlah');
             $table->decimal('harga_beli', 15, 2); // optional kalau harga beli bisa berubah
             $table->date('tanggal_masuk');

@@ -65,6 +65,33 @@
             </div>
         </div>
 
+                {{-- Harga Beli --}}
+        <div class="mb-3 row">
+            <label for="harga_beli" class="col-sm-2 col-form-label text-black">Harga Beli</label>
+            <div class="col-sm-10">
+                <input type="number" wire:model="harga_beli" class="form-control" id="harga_beli" step="0.01">
+                @error('harga_beli') <small class="text-danger">{{ $message }}</small> @enderror
+            </div>
+        </div>
+
+        {{-- Harga Jual --}}
+        <div class="mb-3 row">
+            <label for="harga_jual" class="col-sm-2 col-form-label text-black">Harga Jual</label>
+            <div class="col-sm-10">
+                <input type="number" wire:model="harga_jual" class="form-control" id="harga_jual" step="0.01">
+                @error('harga_jual') <small class="text-danger">{{ $message }}</small> @enderror
+            </div>
+        </div>
+
+        {{-- Stok --}}
+        <div class="mb-3 row">
+            <label for="stok" class="col-sm-2 col-form-label text-black">Stok</label>
+            <div class="col-sm-10">
+                <input type="number" wire:model="stok" class="form-control" id="stok">
+                @error('stok') <small class="text-danger">{{ $message }}</small> @enderror
+            </div>
+        </div>
+
        {{-- Tombol Simpan / Update --}}
         <div class="card-footer text-right">
             <div class="offset-sm-2 col-sm-10">
@@ -85,43 +112,56 @@
     </form>
 
     {{-- Tabel Data Produk --}}
-    <div class="my-4 p-3 bg-body rounded shadow-sm">
-        {{ $dataproduk->links() }}
-        <table class="table table-striped">
-            <thead>
+   <div class="my-4 p-3 bg-body rounded shadow-sm">
+    <div class="table-responsive text-nowrap">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-light">
                 <tr>
-                    <th class="col-md-1">No</th>
-                    <th class="col-md-2">Kode</th>
-                    <th class="col-md-2">Nama</th>
-                    <th class="col-md-2">Merk</th>
-                    <th class="col-md-2">Kategori</th>
-                    <th class="col-md-2">Varian</th>
-                    <th class="col-md-2">Berat</th>
-                    <th class="col-md-3">Aksi</th>
+                    <th>No</th>
+                    <th>Kode</th>
+                    <th>Nama</th>
+                    <th class="d-none d-md-table-cell">Merk</th>
+                    <th class="d-none d-md-table-cell">Kategori</th>
+                    <th class="d-none d-md-table-cell">Varian</th>
+                    <th class="d-none d-md-table-cell">Berat</th>
+                    <th class="d-none d-md-table-cell">Harga Beli</th>
+                    <th class="d-none d-md-table-cell">Harga Jual</th>
+                    <th>Stok</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($dataproduk as $key => $value)
                     <tr>
                         <td>{{ $dataproduk->firstItem() + $key }}</td>
-                        <td>{{ $value->kode_produk }}</td>
-                        <td>{{ $value->nama_produk }}</td>
-                        <td>{{ $value->merk }}</td>
-                        <td>{{ $value->category ? $value->category->name : 'Kategori Tidak Ditemukan' }}</td>
-                        <td>{{ $value->tipe }}</td>
-                        <td>{{ $value->berat }}</td>
-                        <td>
-                        <button wire:click="edit({{ $value->id }})" class="btn btn-icon btn-warning btn-sm text-black" title="Edit">
-                        <i class="fas fa-edit"></i>
-                        </button>
-                        <button wire:click="delete({{ $value->id }})" class="btn btn-icon btn-danger btn-sm text-black" title="Hapus"
-                        onclick="return confirm('Yakin ingin menghapus?')">
-                        <i class="fas fa-trash"></i>
-                        </button>
+                        <td class="text-truncate">{{ $value->kode_produk }}</td>
+                        <td class="text-truncate">{{ $value->nama_produk }}</td>
+                        <td class="d-none d-md-table-cell">{{ $value->merk }}</td>
+                        <td class="d-none d-md-table-cell">{{ $value->category?->name ?? '-' }}</td>
+                        <td class="d-none d-md-table-cell">{{ $value->tipe }}</td>
+                        <td class="d-none d-md-table-cell">{{ $value->berat }}</td>
+                        <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_beli, 2, ',', '.') }}</td>
+                        <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_jual, 2, ',', '.') }}</td>
+                        <td>{{ $value->stok }}</td>
+                        <td class="text-center">
+                            <button wire:click="edit({{ $value->id }})"
+                                class="btn btn-sm btn-warning text-white mb-1" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button wire:click="delete({{ $value->id }})"
+                                class="btn btn-sm btn-danger text-white"
+                                title="Hapus" onclick="return confirm('Yakin ingin menghapus?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        {{ $dataproduk->links() }}
+    </div>
+</div>
 </div>

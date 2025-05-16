@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('promotional_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
             $table->decimal('harga_promosi', 15, 2);
             $table->date('mulai_promo');
             $table->date('akhir_promo');
