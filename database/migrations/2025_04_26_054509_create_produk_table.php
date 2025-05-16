@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('produk', function (Blueprint $table) {
-        $table->id();
-        $table->string('kode_produk')->unique(); // Barcode
-        $table->string('nama_produk');
-        $table->string('merk');
-        $table->string('tipe')->nullable(); // Varian (opsional)
-        $table->integer('berat')->nullable(); // Gram/ml (opsional)
-        $table->foreignId('categories_id')->constrained();
-        $table->timestamps();
+            $table->id();
+            $table->string('kode_produk')->unique();
+            $table->string('nama_produk');
+            $table->string('merk')->nullable();
+            $table->string('tipe')->nullable();
+            $table->decimal('berat', 10, 2)->nullable(); // Berat dalam gram atau kg
+            $table->unsignedBigInteger('categories_id');
+            $table->decimal('harga_beli', 15, 2); // Harga beli dari supplier
+            $table->decimal('harga_jual', 15, 2); // Harga normal (default)
+            $table->integer('stok')->default(0);
+            $table->timestamps();
     });
     }
     /**

@@ -18,6 +18,9 @@ class Produk extends Model
         'tipe',
         'berat',
         'categories_id',
+        'harga_beli',
+        'harga_jual',
+        'stok',
     ];
 
     // Relasi ke kategori (jika kamu punya model Kategori)
@@ -26,15 +29,4 @@ class Produk extends Model
         return $this->belongsTo(Category::class, 'categories_id');
     }
 
-    // Relasi ke stok
-    public function stok()
-    {
-        return $this->hasMany(Stok::class, 'produk_id');
-    }
-
-    // Optional: Hitung total stok tersedia (masuk - keluar)
-    public function getStokTersediaAttribute()
-    {
-        return $this->stok()->sum('jumlah');
-    }
 }

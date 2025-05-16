@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stok', function (Blueprint $table) {
+        Schema::create('stock_ins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained()->onDelete('cascade');
+            $table->integer('jumlah');
+            $table->decimal('harga_beli', 15, 2); // optional kalau harga beli bisa berubah
             $table->date('tanggal_masuk');
-            $table->date('tanggal_kedaluwarsa')->nullable();
-            $table->integer('jumlah_masuk');
-            $table->integer('jumlah_terjual')->default(0);
-            $table->integer('harga_beli');
-            $table->integer('harga_jual');
+            $table->date('expired_at')->nullable();
+            $table->string('no_invoice')->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stok');
+        Schema::dropIfExists('stock_ins');
     }
 };
