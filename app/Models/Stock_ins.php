@@ -20,8 +20,8 @@ class Stock_ins extends Model
         'no_invoice',
     ];
 
-    public function stok_masuk()
+    public function ambilproduk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 }

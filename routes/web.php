@@ -7,6 +7,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\HargaController;
 use App\Http\Controllers\GambarProdukController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UtamaController;
 use App\Models\Stok;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,4 @@ Route::delete('/kt/{id}/destroy', [CategoriesController::class, 'destroy'])->nam
 Route::get('/pd', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/st', [StokController::class, 'index'])->name('stok.index');
 Route::get('/hg', [HargaController::class, 'index'])->name('harga.index');
-Route::get('/gp', [GambarProdukController::class, 'index'])->name('gp.index');
+Route::get('/tr', [TransaksiController::class, 'index'])->name('transaksi.index');

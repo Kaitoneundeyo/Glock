@@ -22,6 +22,7 @@
                     <li><a href="{{ route('kategori.index') }}" class="nav-link">KATEGORI</a></li>
                     <li><a href="{{ route('produk.index') }}" class="nav-link">PRODUK</a></li>
                     <li><a href="{{ route('stok.index') }}" class="nav-link">STOK</a></li>
+                    <li><a href="{{ route('transaksi.index') }}" class="nav-link">TRANSAKSI</a></li>
                     <li><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a></li>
                 </ul>
             </li>

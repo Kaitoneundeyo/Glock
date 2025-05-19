@@ -112,21 +112,20 @@
     </form>
 
     {{-- Tabel Data Produk --}}
-   <div class="my-4 p-3 bg-body rounded shadow-sm">
-    <div class="table-responsive text-nowrap">
+   <div class="table-responsive text-nowrap">
         <table class="table table-striped table-bordered align-middle">
-            <thead class="table-light">
+            <thead class="bg-blue-200 text-black">
                 <tr>
-                    <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
+                    <th class="d-none d-md-table-cell">No</th>
+                    <th class="d-none d-md-table-cell">Kode</th>
+                    <th class="d-none d-md-table-cell">Nama</th>
                     <th class="d-none d-md-table-cell">Merk</th>
                     <th class="d-none d-md-table-cell">Kategori</th>
                     <th class="d-none d-md-table-cell">Varian</th>
                     <th class="d-none d-md-table-cell">Berat</th>
                     <th class="d-none d-md-table-cell">Harga Beli</th>
                     <th class="d-none d-md-table-cell">Harga Jual</th>
-                    <th>Stok</th>
+                    <th class="d-none d-md-table-cell">Stok</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>

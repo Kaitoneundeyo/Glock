@@ -29,4 +29,9 @@ class Produk extends Model
         return $this->belongsTo(Category::class, 'categories_id');
     }
 
+    public function stock_ins()
+    {
+        return $this->hasMany(Stock_ins::class, 'produk_id');
+    }
+
 }
