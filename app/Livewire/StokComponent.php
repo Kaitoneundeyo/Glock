@@ -65,7 +65,7 @@ class StokComponent extends Component
 
         $invoice = $this->generateInvoiceNumber();
 
-        $stok = Stock_ins::create([
+        Stock_ins::create([
             'produk_id' => $this->produk_id,
             'jumlah' => $this->jumlah,
             'harga_beli' => $this->harga_beli,
@@ -73,6 +73,7 @@ class StokComponent extends Component
             'expired_at' => $this->expired_at,
             'no_invoice' => $invoice,
         ]);
+
 
         $produk = Produk::find($this->produk_id);
         $produk->stok += $this->jumlah;
@@ -105,33 +106,60 @@ class StokComponent extends Component
     }
 
     public function update()
-    {
-        $this->validate([
-            'produk_id' => 'required|exists:produk,id',
-            'jumlah' => 'required|numeric|min:1',
-            'harga_beli' => 'required|numeric|min:0',
-            'tanggal_masuk' => 'required|date',
-            'expired_at' => 'nullable|date|after_or_equal:tanggal_masuk',
-        ]);
+{
+    $this->validate([
+        'produk_id' => 'required|exists:produk,id',
+        'jumlah' => 'required|numeric|min:1',
+        'harga_beli' => 'required|numeric|min:0',
+        'tanggal_masuk' => 'required|date',
+        'expired_at' => 'nullable|date|after_or_equal:tanggal_masuk',
+    ]);
 
-        $stok = Stock_ins::findOrFail($this->stok_id);
-        $stok->update([
-            'produk_id' => $this->produk_id,
-            'jumlah' => $this->jumlah,
-            'harga_beli' => $this->harga_beli,
-            'tanggal_masuk' => $this->tanggal_masuk,
-            'expired_at' => $this->expired_at,
-        ]);
+    $stok = Stock_ins::findOrFail($this->stok_id);
 
-        $this->resetForm();
+    // Ambil produk
+    $produk = Produk::find($this->produk_id);
 
-        session()->flash('message', 'Data stok berhasil diperbarui.');
+    // Kembalikan stok lama
+    $produk->stok -= $stok->jumlah;
+
+    // Update data stok
+    $stok->update([
+        'produk_id' => $this->produk_id,
+        'jumlah' => $this->jumlah,
+        'harga_beli' => $this->harga_beli,
+        'tanggal_masuk' => $this->tanggal_masuk,
+        'expired_at' => $this->expired_at,
+    ]);
+
+    // Tambahkan stok baru
+    $produk->stok += $this->jumlah;
+
+    // Hitung ulang total stok dan harga beli rata-rata
+    $stockData = Stock_ins::where('produk_id', $produk->id);
+    $total_jumlah = $stockData->sum('jumlah');
+    $total_nilai = $stockData->sum(\DB::raw('jumlah * harga_beli'));
+
+    if ($total_jumlah > 0) {
+        $produk->harga_beli = round($total_nilai / $total_jumlah, 2);
     }
+
+    $produk->save();
+
+    $this->resetForm();
+
+    session()->flash('message', 'Data stok berhasil diperbarui.');
+}
+
 
     public function delete($id)
     {
         $stok = Stock_ins::findOrFail($id);
         $stok->delete();
+
+        $produk = Produk::find($stok->produk_id);
+        $produk->stok -= $stok->jumlah;
+        $produk->save();
 
         session()->flash('message', 'Data stok berhasil dihapus.');
     }
@@ -146,7 +174,7 @@ class StokComponent extends Component
         }
     }
 
-    private function resetForm()
+    public function resetForm()
     {
         $this->reset(['produk_id', 'jumlah', 'harga_beli', 'tanggal_masuk', 'expired_at', 'stok_id']);
         $this->tanggal_masuk = now()->format('Y-m-d');
