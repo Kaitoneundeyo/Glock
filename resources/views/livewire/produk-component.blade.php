@@ -95,11 +95,11 @@
        {{-- Tombol Simpan / Update --}}
         <div class="card-footer text-right">
             <div class="offset-sm-2 col-sm-10">
-                <button type="submit" class="btn btn-{{ $updateMode ? 'success' : 'primary' }} text-black">
+                <button type="submit" class="btn btn-{{ $updateMode ? 'success' : 'primary' }} text-white">
                     {{ $updateMode ? 'Update Produk' : 'Simpan Produk' }}
                 </button>
                 @if($updateMode)
-                    <button type="button" wire:click="resetForm" class="btn btn-outline-primary text-black">Batal</button>
+                    <button type="button" wire:click="resetForm" class="btn btn-outline-primary text-white">Batal</button>
                 @endif
             </div>
         </div>
@@ -112,9 +112,9 @@
     </form>
 
     {{-- Tabel Data Produk --}}
-   <div class="table-responsive text-nowrap">
-        <table class="table table-striped table-bordered align-middle">
-            <thead class="bg-blue-200 text-black">
+   <div class="table-responsive bg-secondary text-nowrap">
+        <table class="table table-bordered text-center text-black">
+            <thead class="bg-blue-400">
                 <tr>
                     <th class="d-none d-md-table-cell">No</th>
                     <th class="d-none d-md-table-cell">Kode</th>

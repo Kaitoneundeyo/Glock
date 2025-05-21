@@ -3,10 +3,10 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>STOK PRODUK</h1>
+        <h1>SUPPLIER</h1>
     </div>
     <div>
-        @livewire('stok-component')
+        @livewire('supplier-component');
     </div>
 
 @endsection

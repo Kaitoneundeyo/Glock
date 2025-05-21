@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class TransaksiPenjualan extends Component
+class DetailstokComponent extends Component
 {
     public function render()
     {
-        return view('livewire.transaksi-penjualan');
+        return view('livewire.detailstok-component');
     }
 }

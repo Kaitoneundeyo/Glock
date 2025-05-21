@@ -35,5 +35,10 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        {{ $errors->first() }}
+    </div>
+@endif
 </div>
 @endsection

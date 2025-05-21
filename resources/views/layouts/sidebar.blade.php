@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="#">Raymuna</a>
+            <a href="#">COOL</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="#">SIPIN</a>
+            <a href="#">CROCKS</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
@@ -21,8 +21,9 @@
                     <li><a href="{{ route('user.index') }}" class="nav-link">USER</a></li>
                     <li><a href="{{ route('kategori.index') }}" class="nav-link">KATEGORI</a></li>
                     <li><a href="{{ route('produk.index') }}" class="nav-link">PRODUK</a></li>
-                    <li><a href="{{ route('stok.index') }}" class="nav-link">STOK</a></li>
-                    <li><a href="{{ route('transaksi.index') }}" class="nav-link">TRANSAKSI</a></li>
+                    <li><a href="{{ route('supplier.index') }}" class="nav-link">SUPPLIER</a></li>
+                    <li><a href="{{ route('invoice.index') }}" class="nav-link">INVOICE</a></li>
+                    <li><a href="{{ route('stokmasuk.index') }}" class="nav-link">STOK MASUK</a></li>
                     <li><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a></li>
                 </ul>
             </li>

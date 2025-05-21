@@ -31,10 +31,10 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
         if (Auth::attempt($data)) {
-            return redirect()->route('home.index');
-        } else {
-            return back()->with('error', 'Email atau password salah');
-        }
+        $request->session()->regenerate(); // ⬅️ Sangat penting!
+        return redirect()->route('home.index');
+}
+
     }
 
     /**
