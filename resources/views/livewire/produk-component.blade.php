@@ -142,16 +142,18 @@
                         <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_beli, 2, ',', '.') }}</td>
                         <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_jual, 2, ',', '.') }}</td>
                         <td>{{ $value->stok }}</td>
-                        <td class="text-center">
-                            <button wire:click="edit({{ $value->id }})"
-                                class="btn btn-sm btn-warning text-white mb-1" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button wire:click="delete({{ $value->id }})"
-                                class="btn btn-sm btn-danger text-white"
-                                title="Hapus" onclick="return confirm('Yakin ingin menghapus?')">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button wire:click="edit({{ $value->id }})"
+                                    class="btn btn-sm btn-warning text-white mb-1" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button wire:click="delete({{ $value->id }})"
+                                    class="btn btn-sm btn-danger text-white"
+                                    title="Hapus" onclick="return confirm('Yakin ingin menghapus?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

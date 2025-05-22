@@ -73,12 +73,14 @@
                                     <td>{{ $value->alamat }}</td>
                                     <td>{{ $value->kontak }}</td>
                                     <td>
-                                        <button wire:click="edit({{ $value->id }})"
-                                            class="btn btn-sm btn-warning">Edit</button>
-                                        <button wire:click="delete({{ $value->id }})" class="btn btn-sm btn-danger"
-                                            onclick="confirm('Yakin ingin menghapus?') || event.stopImmediatePropagation()">
-                                            Hapus
-                                        </button>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button wire:click="edit({{ $value->id }})" class="btn btn-sm btn-warning text-white mb-1" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button wire:click="delete({{ $value->id }})" class="btn btn-sm btn-danger text-white" title="Hapus"
+                                                onclick="return confirm('Yakin ingin menghapus?')">
+                                                <i class="fas fa-trash-alt"></i> </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

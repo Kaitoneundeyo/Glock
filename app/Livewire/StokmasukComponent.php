@@ -11,30 +11,44 @@ class StokmasukComponent extends Component
 {
     public $no_invoice, $tanggal_masuk, $supplier_id;
     public $suppliers, $search;
-    public $filterTanggalMasuk, $filterNoInvoice, $filterSupplier;
     public $stokmasuk_id;
     public $isEdit = false;
 
     public function mount()
     {
-        $this->generateNomorInvoice();
-        $this->tanggal_masuk = now()->toDateString();
         $this->suppliers = Supplier::with('stokMasuks')->get();
+        $this->tanggal_masuk = Carbon::today()->toDateString();
+        $this->generateNomorInvoice();
     }
 
     public function generateNomorInvoice()
     {
-        $today = Carbon::now();
-        $tanggalFormatted = $today->format('Y/m/d');
-        $prefix = 'RYM-' . $tanggalFormatted;
+        $today = Carbon::today();
+        $year = $today->format('Y');
+        $month = $today->format('m');
+        $day = $today->format('d');
 
-        $count = Stok_masuk::whereDate('tanggal_masuk', $today->toDateString())
-            ->where('no_invoice', 'like', $prefix . '%')
-            ->count();
+        // Cari invoice terakhir untuk hari ini
+        $lastInvoice = Stok_masuk::whereDate('tanggal_masuk', $today)
+            ->orderBy('no_invoice', 'desc')
+            ->value('no_invoice');
 
-        $noUrut = str_pad($count + 1, 5, '0', STR_PAD_LEFT);
-        $this->no_invoice = $prefix . '/' . $noUrut;
+        if ($lastInvoice) {
+            // Ambil bagian nomor urut dari format: RYM-00001/2025/05/22
+            preg_match('/RYM-(\d{5})/', $lastInvoice, $matches);
+            $lastNumber = isset($matches[1]) ? (int) $matches[1] : 0;
+        } else {
+            $lastNumber = 0;
+        }
+
+        // Tambah 1 dan pad jadi 5 digit
+        $nextNumber = str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT);
+
+        // Hasilkan nomor baru
+        $this->no_invoice = "RYM-$nextNumber/$year/$month/$day";
     }
+
+
 
     protected function rules()
     {
@@ -55,10 +69,14 @@ class StokmasukComponent extends Component
             'supplier_id' => $this->supplier_id,
         ]);
 
-
         session()->flash('message', 'Data berhasil disimpan.');
+
+        // Reset form dan buat nomor invoice baru
         $this->resetForm();
+        $this->tanggal_masuk = Carbon::today()->toDateString();
+        $this->generateNomorInvoice();
     }
+
 
     public function edit($id)
     {
@@ -93,24 +111,22 @@ class StokmasukComponent extends Component
 
     public function resetForm()
     {
-        $this->reset(['no_invoice', 'tanggal_masuk', 'supplier_id', 'stokmasuk_id', 'isEdit']);
+        $this->reset(['no_invoice', 'supplier_id', 'stokmasuk_id', 'isEdit']);
+        $this->tanggal_masuk = Carbon::today()->toDateString();
         $this->generateNomorInvoice();
-        $this->tanggal_masuk = now()->toDateString();
     }
+
 
     public function render()
     {
         $stokMasuks = Stok_masuk::with('supplier')
-        ->when($this->filterTanggalMasuk, fn($q) => $q->whereDate('tanggal_masuk', $this->filterTanggalMasuk))
-        ->when($this->filterNoInvoice, fn($q) => $q->where('no_invoice', 'like', '%' . $this->filterNoInvoice . '%'))
-        ->when($this->filterSupplier, fn($q) => $q->where('supplier_id', $this->filterSupplier))
-        ->orderBy('tanggal_masuk', 'desc')
-        ->get();
-
+            ->where('no_invoice', 'like', '%' . $this->search . '%')
+            ->orderBy('tanggal_masuk', 'desc')
+            ->get();
 
         return view('livewire.stokmasuk-component', [
             'stokMasuks' => $stokMasuks,
-            'suppliers' => $this->suppliers,
+            'suppliers' => $this->suppliers ?? [], // Fallback agar tidak null
         ]);
     }
 }
