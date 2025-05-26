@@ -2,13 +2,19 @@
     {{-- Form Tambah Produk --}}
     <form wire:submit.prevent="{{ $updateMode ? 'update' : 'store' }}">
         {{-- Kode Produk --}}
-        <div class="mb-3 row">
+        <div class="mb-3 row align-items-center">
             <label for="kode_produk" class="col-sm-2 col-form-label text-black">Kode Produk</label>
-            <div class="col-sm-10">
+            <div class="col-sm-7">
                 <input type="text" wire:model="kode_produk" class="form-control" id="kode_produk">
                 @error('kode_produk') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
+            <div class="col-sm-3 text-end">
+                <button type="button" class="btn btn-outline-primary" onclick="startScanner()">Scan Barcode</button>
+            </div>
         </div>
+
+        {{-- Kamera Scanner --}}
+        <div id="reader" class="mb-3" style="width:100%; max-width: 400px; display:none;"></div>
 
         {{-- Nama Produk --}}
         <div class="mb-3 row">
@@ -42,7 +48,7 @@
             </div>
         </div>
 
-        {{-- Varian / Tipe --}}
+        {{-- Varian --}}
         <div class="mb-3 row">
             <label for="tipe" class="col-sm-2 col-form-label text-black">Varian</label>
             <div class="col-sm-10">
@@ -65,7 +71,7 @@
             </div>
         </div>
 
-                {{-- Harga Beli --}}
+        {{-- Harga Beli --}}
         <div class="mb-3 row">
             <label for="harga_beli" class="col-sm-2 col-form-label text-black">Harga Beli</label>
             <div class="col-sm-10">
@@ -92,47 +98,46 @@
             </div>
         </div>
 
-       {{-- Tombol Simpan / Update --}}
-        <div class="card-footer text-right">
+        {{-- Tombol Simpan / Update --}}
+        <div class="card-footer text-end">
             <div class="offset-sm-2 col-sm-10">
                 <button type="submit" class="btn btn-{{ $updateMode ? 'success' : 'primary' }} text-white">
                     {{ $updateMode ? 'Update Produk' : 'Simpan Produk' }}
                 </button>
                 @if($updateMode)
-                    <button type="button" wire:click="resetForm" class="btn btn-outline-primary text-white">Batal</button>
+                    <button type="button" wire:click="resetForm" class="btn btn-outline-secondary">Batal</button>
                 @endif
             </div>
         </div>
 
-
         {{-- Notifikasi Sukses --}}
         @if (session()->has('message'))
-            <div class="alert alert-success mt-2">{{ session('message') }}</div>
+            <div class="alert alert-success mt-3">{{ session('message') }}</div>
         @endif
     </form>
 
     {{-- Tabel Data Produk --}}
-   <div class="table-responsive bg-secondary text-nowrap">
+    <div class="table-responsive bg-secondary text-nowrap mt-4">
         <table class="table table-bordered text-center text-black">
-            <thead class="bg-blue-400">
+            <thead class="bg-primary text-white">
                 <tr>
                     <th class="d-none d-md-table-cell">No</th>
-                    <th class="d-none d-md-table-cell">Kode</th>
-                    <th class="d-none d-md-table-cell">Nama</th>
+                    <th>Kode</th>
+                    <th>Nama</th>
                     <th class="d-none d-md-table-cell">Merk</th>
                     <th class="d-none d-md-table-cell">Kategori</th>
                     <th class="d-none d-md-table-cell">Varian</th>
                     <th class="d-none d-md-table-cell">Berat</th>
                     <th class="d-none d-md-table-cell">Harga Beli</th>
                     <th class="d-none d-md-table-cell">Harga Jual</th>
-                    <th class="d-none d-md-table-cell">Stok</th>
-                    <th class="text-center">Aksi</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($dataproduk as $key => $value)
                     <tr>
-                        <td>{{ $dataproduk->firstItem() + $key }}</td>
+                        <td class="d-none d-md-table-cell">{{ $dataproduk->firstItem() + $key }}</td>
                         <td class="text-truncate">{{ $value->kode_produk }}</td>
                         <td class="text-truncate">{{ $value->nama_produk }}</td>
                         <td class="d-none d-md-table-cell">{{ $value->merk }}</td>
@@ -143,7 +148,7 @@
                         <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_jual, 2, ',', '.') }}</td>
                         <td>{{ $value->stok }}</td>
                         <td>
-                            <div class="d-flex justify-content-center gap-2">
+                            <div class="d-flex justify-content-center gap-1">
                                 <button wire:click="edit({{ $value->id }})"
                                     class="btn btn-sm btn-warning text-white mb-1" title="Edit">
                                     <i class="fas fa-edit"></i>
@@ -161,8 +166,8 @@
         </table>
     </div>
 
+    {{-- Pagination --}}
     <div class="d-flex justify-content-center mt-3">
         {{ $dataproduk->links() }}
     </div>
-</div>
 </div>

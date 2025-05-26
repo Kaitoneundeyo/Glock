@@ -18,7 +18,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <!-- VITE -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('css')

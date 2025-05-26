@@ -16,7 +16,7 @@ class ProdukComponent extends Component
     public $produk_id;
     public $kode_produk, $nama_produk, $merk, $tipe, $berat, $categories_id, $harga_beli, $harga_jual, $stok;
     public $updateMode = false;
-
+    protected $listeners = ['kodeProdukScanned'];
     public function mount()
     {
         $this->categories = Category::all();
@@ -37,6 +37,11 @@ class ProdukComponent extends Component
         ];
     }
 
+    public function kodeProdukScanned($value)
+    {
+        $this->kode_produk = $value;
+    }
+    
     public function store()
     {
         $this->produk_id = 'NULL'; // untuk validasi unique saat store

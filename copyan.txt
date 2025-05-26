@@ -1,15 +1,53 @@
-<div class="row mb-3">
-        <div class="col-md-3">
-        <input type="date" class="form-control" wire:model="filterTanggalMasuk" placeholder="Filter Tanggal Masuk">
-    </div>
-    <div class="col-md-3">
-        <input type="text" class="form-control" wire:model="filterNoInvoice" placeholder="Cari No Invoice">
-    </div>
-    <div class="col-md-3">
-        <select class="form-control" wire:model="filterSupplier">
-            <option value="">Semua Supplier</option>
-            @foreach($suppliers as $supplier)
-                <option value="{{ $supplier->id }}">{{ $supplier->nama_supplier }}</option>
-            @endforeach
-        </select>
-    </div>
+<div class="mb-4">
+    <form wire:submit.prevent="store" class="flex gap-2 flex-wrap items-end">
+        <div>
+            <label>Produk</label>
+            <select wire:model="produk_id" class="form-select">
+                <option value="">- Pilih -</option>
+                @foreach($produkList as $produk)
+                    <option value="{{ $produk->id }}">{{ $produk->nama_produk }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label>Jumlah</label>
+            <input type="number" wire:model="jumlah" class="form-input w-20">
+        </div>
+        <div>
+            <label>Harga Beli</label>
+            <input type="number" wire:model="harga_beli" class="form-input w-28">
+        </div>
+        <div>
+            <label>Expired</label>
+            <input type="date" wire:model="expired_at" class="form-input">
+        </div>
+        <button class="bg-blue-500 text-white px-4 py-1 rounded">Tambah</button>
+    </form>
+</div>
+
+<table class="table-auto w-full border mt-4">
+    <thead>
+        <tr class="bg-gray-200">
+            <th class="border px-2">Produk</th>
+            <th class="border px-2">Jumlah</th>
+            <th class="border px-2">Harga</th>
+            <th class="border px-2">Expired</th>
+            <th class="border px-2">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($items as $item)
+        <tr>
+            <td class="border px-2">{{ $item->produk->nama_produk }}</td>
+            <td class="border px-2">{{ $item->jumlah }}</td>
+            <td class="border px-2">Rp{{ number_format($item->harga_beli, 0, ',', '.') }}</td>
+            <td class="border px-2">{{ $item->expired_at }}</td>
+            <td class="border px-2">
+                <button wire:click="delete({{ $item->id }})"
+                    onclick="return confirm('Yakin hapus item ini?')"
+                    class="text-red-500 hover:underline">Hapus</button>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>

@@ -6,6 +6,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HargaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StokmasukController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
@@ -39,5 +40,8 @@ Route::get('/sp', [SupplierController::class, 'index'])->name('supplier.index');
 Route::get('/iv', [InvoiceController::class, 'index'])->name('invoice.index');
 Route::get('/st', [StokmasukController::class, 'index'])->name('stokmasuk.index');
 Route::get('/stokmasuk/export/today', [StokmasukController::class, 'exportToday'])->name('stokmasuk.export.today');
+Route::get('/it/{id}', function ($id) {
+    return view('item.index', ['id' => $id]);
+})->name('item.index');
 Route::get('/hg', [HargaController::class, 'index'])->name('harga.index');
 Route::get('/tr', [TransaksiController::class, 'index'])->name('transaksi.index');

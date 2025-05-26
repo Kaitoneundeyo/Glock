@@ -28,27 +28,25 @@ class StokmasukComponent extends Component
         $month = $today->format('m');
         $day = $today->format('d');
 
-        // Cari invoice terakhir untuk hari ini
+        // Ambil semua invoice hari ini dan cari nomor urut tertinggi
         $lastInvoice = Stok_masuk::whereDate('tanggal_masuk', $today)
             ->orderBy('no_invoice', 'desc')
             ->value('no_invoice');
 
         if ($lastInvoice) {
-            // Ambil bagian nomor urut dari format: RYM-00001/2025/05/22
-            preg_match('/RYM-(\d{5})/', $lastInvoice, $matches);
+            // Ambil bagian nomor urut dari invoice hari ini: RYM-00001/2025/05/22
+            preg_match('/RYM-(\d{5})\/' . $year . '\/' . $month . '\/' . $day . '/', $lastInvoice, $matches);
             $lastNumber = isset($matches[1]) ? (int) $matches[1] : 0;
         } else {
             $lastNumber = 0;
         }
 
-        // Tambah 1 dan pad jadi 5 digit
+        // Tambahkan +1 dan format 5 digit
         $nextNumber = str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT);
 
-        // Hasilkan nomor baru
+        // Hasilkan nomor invoice
         $this->no_invoice = "RYM-$nextNumber/$year/$month/$day";
     }
-
-
 
     protected function rules()
     {
