@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper" style="overflow-y: auto;">
         <div class="sidebar-brand">
-            <a href="#">COOL</a>
+            <a href="#">Raymuna</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="#">CROCKS</a>
+            <a href="#">RY</a>
         </div>
 
         <ul class="sidebar-menu">

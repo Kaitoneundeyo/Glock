@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-10">
                     <div class="bg-transparent card-rounded p-1 mb-3 row">
-                        <h2 class="text-2xl font-semibold text-gray-800">FORM ISIAN</h2>
+                        <h2 class="text-2xl font-semibold text-gray-800">Tambah Supplier</h2>
                     </div>
                     <form wire:submit.prevent="{{ $isEdit ? 'update' : 'store' }}">
                         <div class="mb-3 row">
