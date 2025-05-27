@@ -18,6 +18,7 @@
                 <a href="{{ route('home.index')}}" class="nav-link has-dropdown">
                 <i class="fas fa-th"></i><span>DASHBOARD</span></a>
                <ul class="dropdown-menu">
+                <li><a href="{{ route('tampil.index') }}" class="nav-link">HOME</a></li>
                     <li><a href="{{ route('user.index') }}" class="nav-link">USER</a></li>
                     <li><a href="{{ route('kategori.index') }}" class="nav-link">KATEGORI</a></li>
                     <li><a href="{{ route('produk.index') }}" class="nav-link">PRODUK</a></li>

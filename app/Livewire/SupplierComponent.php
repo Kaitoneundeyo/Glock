@@ -4,9 +4,13 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Supplier;
+use Livewire\WithPagination;
 
 class SupplierComponent extends Component
 {
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
 
     public $search = '';
     public $nama_supplier, $alamat, $kontak, $supplier_id;
@@ -70,6 +74,12 @@ class SupplierComponent extends Component
         Supplier::destroy($id);
         session()->flash('message', 'Data supplier berhasil dihapus.');
     }
+
+    public function searchSupplier()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $suppliers = Supplier::where('nama_supplier', 'like', '%' . $this->search . '%')

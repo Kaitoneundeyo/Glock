@@ -19,9 +19,6 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
             ProductSeeder::class,
             SupplierSeeder::class,
-            StokmasukSeeder::class,
-            StokmasukitemSeeder::class,
-
         ]);
     }
 }

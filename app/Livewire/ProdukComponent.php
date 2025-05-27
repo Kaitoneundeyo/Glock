@@ -14,9 +14,13 @@ class ProdukComponent extends Component
 
     public $categories;
     public $produk_id;
-    public $kode_produk, $nama_produk, $merk, $tipe, $berat, $categories_id, $harga_beli, $harga_jual, $stok;
+    public $kode_produk, $nama_produk, $merk, $tipe, $berat, $categories_id, $stok;
     public $updateMode = false;
     protected $listeners = ['kodeProdukScanned'];
+
+    public $filterKodeProduk;
+    public $filterNamaProduk;
+    public $filterMerk;
     public function mount()
     {
         $this->categories = Category::all();
@@ -31,8 +35,6 @@ class ProdukComponent extends Component
             'categories_id'  => 'required',
             'tipe'           => 'nullable',
             'berat'          => 'nullable|numeric',
-            'harga_beli'     => 'required|numeric',
-            'harga_jual'     => 'required|numeric',
             'stok'           => 'required|integer',
         ];
     }
@@ -41,7 +43,7 @@ class ProdukComponent extends Component
     {
         $this->kode_produk = $value;
     }
-    
+
     public function store()
     {
         $this->produk_id = 'NULL'; // untuk validasi unique saat store
@@ -64,8 +66,6 @@ class ProdukComponent extends Component
         $this->categories_id = $dataproduk->categories_id;
         $this->tipe          = $dataproduk->tipe;
         $this->berat         = $dataproduk->berat;
-        $this->harga_beli    = $dataproduk->harga_beli;
-        $this->harga_jual    = $dataproduk->harga_jual;
         $this->stok          = $dataproduk->stok;
 
         $this->updateMode = true;
@@ -88,18 +88,28 @@ class ProdukComponent extends Component
         session()->flash('message', 'Produk berhasil dihapus');
     }
 
+    public function searchProduk()
+    {
+        $this->resetPage();
+    }
+
     public function resetForm()
     {
         $this->reset([
             'produk_id', 'kode_produk', 'nama_produk', 'merk',
-            'categories_id', 'tipe', 'berat', 'harga_beli', 'harga_jual', 'stok'
+            'categories_id', 'tipe', 'berat', 'stok'
         ]);
         $this->updateMode = false;
     }
 
     public function render()
     {
-        $dataproduk = Produk::orderBy('nama_produk', 'asc')->paginate(5);
+        $dataproduk = Produk::query()
+            ->when($this->filterKodeProduk, fn($q) => $q->where('kode_produk', 'like', '%' . $this->filterKodeProduk . '%'))
+            ->when($this->filterNamaProduk, fn($q) => $q->where('nama_produk', 'like', '%' . $this->filterNamaProduk . '%'))
+            ->when($this->filterMerk, fn($q) => $q->where('merk', 'like', '%' . $this->filterMerk . '%'))
+            ->orderBy('nama_produk', 'asc')
+            ->paginate(10); // atau ubah ke 5 jika ingin 5 per halaman
 
         return view('livewire.produk-component', [
             'dataproduk' => $dataproduk,

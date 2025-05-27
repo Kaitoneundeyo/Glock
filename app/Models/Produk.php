@@ -18,20 +18,21 @@ class Produk extends Model
         'tipe',
         'berat',
         'categories_id',
-        'harga_beli',
-        'harga_jual',
         'stok',
     ];
 
-    // Relasi ke kategori (jika kamu punya model Kategori)
     public function category()
     {
         return $this->belongsTo(Category::class, 'categories_id');
     }
 
-    public function stock_ins()
+    public function stokMasukItems()
     {
-        return $this->hasMany(Stock_ins::class, 'produk_id');
+        return $this->hasMany(Stok_masuk_item::class);
     }
 
+    public function harga()
+    {
+        return $this->hasOne(HargaProduk::class);
+    }
 }

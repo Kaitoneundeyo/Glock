@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StokmasukController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TampilanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UtamaController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,5 @@ Route::get('/it/{id}', function ($id) {
     return view('item.index', ['id' => $id]);
 })->name('item.index');
 Route::get('/hg', [HargaController::class, 'index'])->name('harga.index');
+Route::get('/dashboard', [TampilanController::class, 'index'])->name('tampil.index');
 Route::get('/tr', [TransaksiController::class, 'index'])->name('transaksi.index');

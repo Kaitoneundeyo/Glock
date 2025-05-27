@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        {{-- Bungkus semuanya dalam satu container --}}
+        {{-- Container --}}
         <div class="container-fluid">
             {{-- Form --}}
             <div class="row justify-content-center">
@@ -48,51 +48,73 @@
                 </div>
             </div>
 
-            {{-- Table --}}
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-10">
-                    <div class="mb-3">
-                        <input wire:model="search" type="text" class="form-control"
-                            placeholder="Cari nama supplier atau kontak...">
-                    </div>
-                    <table class="table table-bordered text-center text-black">
-                        <thead class="bg-blue-400">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Supplier</th>
-                                <th>Alamat</th>
-                                <th>Kontak</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($suppliers as $key => $value)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $value->nama_supplier }}</td>
-                                    <td>{{ $value->alamat }}</td>
-                                    <td>{{ $value->kontak }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <button wire:click="edit({{ $value->id }})" class="btn btn-sm btn-warning text-white mb-1" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button wire:click="delete({{ $value->id }})" class="btn btn-sm btn-danger text-white" title="Hapus"
-                                                onclick="return confirm('Yakin ingin menghapus?')">
-                                                <i class="fas fa-trash-alt"></i> </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5">Tidak ada data supplier.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+            {{-- Search --}}
+            <form wire:submit.prevent="searchSupplier">
+                <div class="input-group mt-4 mb-3">
+                    <input wire:model.defer="search" type="text" class="form-control"
+                        placeholder="Cari nama supplier atau kontak...">
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-            </div>
+            </form>
 
+            {{-- Tabel --}}
+            <table class="table table-bordered text-center text-black">
+                <thead class="bg-blue-400">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Supplier</th>
+                        <th>Alamat</th>
+                        <th>Kontak</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($suppliers as $key => $value)
+                        <tr>
+                            <td>{{ $suppliers->firstItem() + $key }}</td>
+                            <td>{{ $value->nama_supplier }}</td>
+                            <td>{{ $value->alamat }}</td>
+                            <td>{{ $value->kontak }}</td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button wire:click="edit({{ $value->id }})"
+                                        class="btn btn-sm btn-warning text-white mb-1" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button wire:click="delete({{ $value->id }})" class="btn btn-sm btn-danger text-white"
+                                        title="Hapus" onclick="return confirm('Yakin ingin menghapus?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">Tidak ada data supplier.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{-- Custom Pagination --}}
+    <div class="card-footer clearfix">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ $suppliers->previousPageUrl() }}"
+                class="btn {{ $suppliers->onFirstPage() ? 'btn-secondary disabled' : 'btn-primary' }}">
+                Previous
+            </a>
+            <span>Halaman {{ $suppliers->currentPage() }} dari {{ $suppliers->lastPage() }}</span>
+            <a href="{{ $suppliers->nextPageUrl() }}"
+                class="btn {{ $suppliers->hasMorePages() ? 'btn-primary' : 'btn-secondary disabled' }}">
+                Next
+            </a>
+        </div>
+
+        {{-- Default Pagination Links --}}
+        <div class="d-flex justify-content-end mt-2">
+            {{ $suppliers->links() }}
         </div>
     </div>
 </div>

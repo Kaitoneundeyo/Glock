@@ -71,24 +71,6 @@
             </div>
         </div>
 
-        {{-- Harga Beli --}}
-        <div class="mb-3 row">
-            <label for="harga_beli" class="col-sm-2 col-form-label text-black">Harga Beli</label>
-            <div class="col-sm-10">
-                <input type="number" wire:model="harga_beli" class="form-control" id="harga_beli" step="0.01">
-                @error('harga_beli') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-        </div>
-
-        {{-- Harga Jual --}}
-        <div class="mb-3 row">
-            <label for="harga_jual" class="col-sm-2 col-form-label text-black">Harga Jual</label>
-            <div class="col-sm-10">
-                <input type="number" wire:model="harga_jual" class="form-control" id="harga_jual" step="0.01">
-                @error('harga_jual') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-        </div>
-
         {{-- Stok --}}
         <div class="mb-3 row">
             <label for="stok" class="col-sm-2 col-form-label text-black">Stok</label>
@@ -116,22 +98,46 @@
         @endif
     </form>
 
+    {{-- Pencarian --}}
+    <form wire:submit.prevent="searchProduk">
+        <div class="row px-3 mt-4 mb-2 align-items-end">
+            <div class="col-md-3 mb-2">
+                <label for="filterKodeProduk" class="form-label">Kode Produk</label>
+                <input type="text" class="form-control" id="filterKodeProduk" wire:model.defer="filterKodeProduk"
+                    placeholder="Cari Kode...">
+            </div>
+            <div class="col-md-3 mb-2">
+                <label for="filterNamaProduk" class="form-label">Nama Produk</label>
+                <input type="text" class="form-control" id="filterNamaProduk" wire:model.defer="filterNamaProduk"
+                    placeholder="Cari Nama...">
+            </div>
+            <div class="col-md-3 mb-2">
+                <label for="filterMerk" class="form-label">Merk</label>
+                <input type="text" class="form-control" id="filterMerk" wire:model.defer="filterMerk"
+                    placeholder="Cari Merk...">
+            </div>
+            <div class="col-md-3 mb-2 d-grid">
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-search"></i> Cari
+                </button>
+            </div>
+        </div>
+    </form>
+
     {{-- Tabel Data Produk --}}
     <div class="table-responsive bg-secondary text-nowrap mt-4">
         <table class="table table-bordered text-center text-black">
             <thead class="bg-primary text-white">
                 <tr>
                     <th class="d-none d-md-table-cell">No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
+                    <th class="d-none d-md-table-cell">Kode</th>
+                    <th class="d-none d-md-table-cell">Nama</th>
                     <th class="d-none d-md-table-cell">Merk</th>
                     <th class="d-none d-md-table-cell">Kategori</th>
                     <th class="d-none d-md-table-cell">Varian</th>
                     <th class="d-none d-md-table-cell">Berat</th>
-                    <th class="d-none d-md-table-cell">Harga Beli</th>
-                    <th class="d-none d-md-table-cell">Harga Jual</th>
-                    <th>Stok</th>
-                    <th>Aksi</th>
+                    <th class="d-none d-md-table-cell">Stok</th>
+                    <th class="d-none d-md-table-cell">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -144,17 +150,14 @@
                         <td class="d-none d-md-table-cell">{{ $value->category?->name ?? '-' }}</td>
                         <td class="d-none d-md-table-cell">{{ $value->tipe }}</td>
                         <td class="d-none d-md-table-cell">{{ $value->berat }}</td>
-                        <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_beli, 2, ',', '.') }}</td>
-                        <td class="d-none d-md-table-cell">Rp {{ number_format($value->harga_jual, 2, ',', '.') }}</td>
                         <td>{{ $value->stok }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-1">
-                                <button wire:click="edit({{ $value->id }})"
-                                    class="btn btn-sm btn-warning text-white mb-1" title="Edit">
+                                <button wire:click="edit({{ $value->id }})" class="btn btn-sm btn-warning text-white mb-1"
+                                    title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button wire:click="delete({{ $value->id }})"
-                                    class="btn btn-sm btn-danger text-white"
+                                <button wire:click="delete({{ $value->id }})" class="btn btn-sm btn-danger text-white"
                                     title="Hapus" onclick="return confirm('Yakin ingin menghapus?')">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -167,7 +170,20 @@
     </div>
 
     {{-- Pagination --}}
-    <div class="d-flex justify-content-center mt-3">
-        {{ $dataproduk->links() }}
+    <div class="card-footer clearfix mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ $dataproduk->previousPageUrl() }}"
+                class="btn {{ $dataproduk->onFirstPage() ? 'btn-secondary disabled' : 'btn-primary' }}">
+                Previous
+            </a>
+            <span>Halaman {{ $dataproduk->currentPage() }} dari {{ $dataproduk->lastPage() }}</span>
+            <a href="{{ $dataproduk->nextPageUrl() }}"
+                class="btn {{ $dataproduk->hasMorePages() ? 'btn-primary' : 'btn-secondary disabled' }}">
+                Next
+            </a>
+        </div>
+        <div class="d-flex justify-content-end mt-2">
+            {{ $dataproduk->links() }}
+        </div>
     </div>
 </div>

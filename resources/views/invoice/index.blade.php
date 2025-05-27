@@ -6,7 +6,7 @@
         <h1>INVOICE</h1>
     </div>
     <div>
-        @livewire('stokmasuk-component');
+        @livewire('stokmasuk-component')
     </div>
 
 @endsection
