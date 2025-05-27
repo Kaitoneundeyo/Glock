@@ -4,9 +4,11 @@
         <div class="container-fluid">
             {{-- Form --}}
             <div class="row justify-content-center">
-                <div class="col-md-10">
+                <div class="col-sm-10">
+                    <div class="bg-transparent card-rounded p-1 mb-3 row">
+                        <h2 class="text-2xl font-semibold text-gray-800">FORM ISIAN</h2>
+                    </div>
                     <form wire:submit.prevent="{{ $isEdit ? 'update' : 'store' }}">
-                        @csrf
                         <div class="mb-3 row">
                             <label for="nama_supplier" class="col-sm-2 col-form-label text-black">Nama Supplier</label>
                             <div class="col-sm-10">
@@ -32,7 +34,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-2">
+                        <div class="mb-2 float-right">
                             <button type="submit" class="btn btn-primary">{{ $isEdit ? 'Update' : 'Simpan' }}</button>
                             @if($isEdit)
                                 <button type="button" class="btn btn-secondary" wire:click="resetForm">Batal</button>

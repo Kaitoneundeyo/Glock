@@ -102,17 +102,14 @@
     <form wire:submit.prevent="searchProduk">
         <div class="row px-3 mt-4 mb-2 align-items-end">
             <div class="col-md-3 mb-2">
-                <label for="filterKodeProduk" class="form-label">Kode Produk</label>
                 <input type="text" class="form-control" id="filterKodeProduk" wire:model.defer="filterKodeProduk"
                     placeholder="Cari Kode...">
             </div>
             <div class="col-md-3 mb-2">
-                <label for="filterNamaProduk" class="form-label">Nama Produk</label>
                 <input type="text" class="form-control" id="filterNamaProduk" wire:model.defer="filterNamaProduk"
                     placeholder="Cari Nama...">
             </div>
             <div class="col-md-3 mb-2">
-                <label for="filterMerk" class="form-label">Merk</label>
                 <input type="text" class="form-control" id="filterMerk" wire:model.defer="filterMerk"
                     placeholder="Cari Merk...">
             </div>

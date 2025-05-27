@@ -74,6 +74,12 @@ class InvoiceDetailComponent extends Component
             $produk = Produk::find($data['produk_id']);
             $produk->stok += $data['jumlah'];
             $produk->save();
+
+            $hpp = Stok_masuk_item::where('produk_id', $item->produk_id)
+                ->selectRaw('SUM(jumlah * harga_beli) / SUM(jumlah) as hpp')
+                ->value('hpp');
+
+            logger()->info("HPP Produk ID {$item->produk_id} = {$hpp}");
         }
 
         $this->resetForm();
@@ -89,6 +95,13 @@ class InvoiceDetailComponent extends Component
         $this->jumlah = $item->jumlah;
         $this->harga_beli = $item->harga_beli;
         $this->expired_at = $item->expired_at;
+
+        $hpp = Stok_masuk_item::where('produk_id', $item->produk_id)
+            ->selectRaw('SUM(jumlah * harga_beli) / SUM(jumlah) as hpp')
+            ->value('hpp');
+
+        logger()->info("HPP Produk ID {$item->produk_id} = {$hpp}");
+
     }
 
     public function delete($id)
@@ -100,6 +113,12 @@ class InvoiceDetailComponent extends Component
         if ($produk) {
             $produk->stok -= $item->jumlah;
             $produk->save();
+
+            $hpp = Stok_masuk_item::where('produk_id', $item->produk_id)
+                ->selectRaw('SUM(jumlah * harga_beli) / SUM(jumlah) as hpp')
+                ->value('hpp');
+
+            logger()->info("HPP Produk ID {$item->produk_id} = {$hpp}");
         }
 
         $item->delete();

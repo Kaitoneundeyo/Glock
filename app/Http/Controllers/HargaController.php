@@ -8,6 +8,6 @@ class HargaController extends Controller
 {
     public function index()
     {
-        return view('harga.data_harga');
+        return view('harga.index');
     }
 }
