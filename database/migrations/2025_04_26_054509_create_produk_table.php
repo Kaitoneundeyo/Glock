@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('tipe')->nullable();
             $table->decimal('berat', 10, 2)->nullable(); // Berat dalam gram atau kg
             $table->unsignedBigInteger('categories_id');
-            $table->decimal('harga_beli', 15, 2); // Harga beli dari supplier
-            $table->decimal('harga_jual', 15, 2); // Harga normal (default)
             $table->integer('stok')->default(0);
             $table->timestamps();
     });
