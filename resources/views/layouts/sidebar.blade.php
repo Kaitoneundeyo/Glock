@@ -21,6 +21,11 @@
                     <i class="fas fa-home"></i><span>HOME</span>
                 </a>
             </li>
+            <li class="{{ request()->routeIs('gambar.index') ? 'active' : '' }}">
+                <a href="{{ route('coba.index') }}" class="nav-link">
+                    <i class="fas fa-image"></i><span>KERANJANG</span>
+                </a>
+            </li>
             <li class="{{ request()->routeIs('user.index') ? 'active' : '' }}">
                 <a href="{{ route('user.index') }}" class="nav-link">
                     <i class="fas fa-users"></i><span>USER</span>
@@ -54,6 +59,11 @@
             <li class="{{ request()->routeIs('harga.index') ? 'active' : '' }}">
                 <a href="{{ route('harga.index') }}" class="nav-link">
                     <i class="fas fa-dollar-sign"></i><span>HARGA</span>
+                </a>
+            </li>
+            <li class="{{ request()->routeIs('gambar.index') ? 'active' : '' }}">
+                <a href="{{ route('gambar.index') }}" class="nav-link">
+                    <i class="fas fa-image"></i><span>GAMBAR PRODUK</span>
                 </a>
             </li>
             <li>

@@ -21,18 +21,41 @@ class Produk extends Model
         'stok',
     ];
 
-    public function category()
+    // 🔁 Kategori Produk
+    public function kategori()
     {
         return $this->belongsTo(Category::class, 'categories_id');
     }
 
+    // 🔁 Relasi Stok Masuk (jika digunakan)
     public function stokMasukItems()
     {
         return $this->hasMany(Stok_masuk_item::class);
     }
 
-    public function harga()
+    // 🔁 Harga Aktif (promo / tidak promo tergantung tanggal)
+    public function hargaAktif()
     {
-        return $this->hasOne(HargaProduk::class);
+        return $this->hasOne(HargaProduk::class, 'produk_id')
+            ->whereDate('tanggal_mulai_promo', '<=', now())
+            ->whereDate('tanggal_selesai_promo', '>=', now());
+    }
+
+    // 🔁 Semua Harga (jika ingin ambil semua histori harga)
+    public function semuaHarga()
+    {
+        return $this->hasMany(HargaProduk::class, 'produk_id');
+    }
+
+    // 🔁 Gambar Utama
+    public function gambarUtama()
+    {
+        return $this->hasOne(GambarProduk::class, 'produk_id')->where('is_utama', true);
+    }
+
+    // 🔁 Semua Gambar
+    public function gambar()
+    {
+        return $this->hasMany(GambarProduk::class, 'produk_id');
     }
 }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CobaController;
+use App\Http\Controllers\GambarProdukController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HargaController;
@@ -19,6 +21,7 @@ Route::post('/login-proses', [AuthController::class, 'login_proses'])->name('log
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/dashboard', [TampilanController::class, 'index'])->name('tampil.index');
 
 Route::get('/user', [UtamaController::class, 'index'])->name('user.index');
 Route::get('/user/create', [UtamaController::class, 'create'])->name('user.create');
@@ -39,11 +42,14 @@ Route::delete('/kt/{id}/destroy', [CategoriesController::class, 'destroy'])->nam
 Route::get('/pd', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/sp', [SupplierController::class, 'index'])->name('supplier.index');
 Route::get('/iv', [InvoiceController::class, 'index'])->name('invoice.index');
+
 Route::get('/st', [StokmasukController::class, 'index'])->name('stokmasuk.index');
 Route::get('/stokmasuk/export/today', [StokmasukController::class, 'exportToday'])->name('stokmasuk.export.today');
 Route::get('/it/{id}', function ($id) {
     return view('item.index', ['id' => $id]);
 })->name('item.index');
+
+Route::get('/gb', [GambarProdukController::class, 'index'])->name('gambar.index');
 Route::get('/hg', [HargaController::class, 'index'])->name('harga.index');
-Route::get('/dashboard', [TampilanController::class, 'index'])->name('tampil.index');
+Route::get('/cb', [CobaController::class, 'index'])->name('coba.index');
 Route::get('/tr', [TransaksiController::class, 'index'])->name('transaksi.index');

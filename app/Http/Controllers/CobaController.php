@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GambarProdukController extends Controller
+class CobaController extends Controller
 {
     public function index()
     {
-        return view('gambar.index');
+        return view('coba.index');
     }
 }
